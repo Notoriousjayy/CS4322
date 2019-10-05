@@ -1,6 +1,7 @@
+package tessTwo;
+
 import android.graphics.Bitmap;
 
-import com.example.cs4322.MainApplication;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 public class OcrManager {

@@ -1,4 +1,4 @@
-package com.example.cs4322;
+package tessTwo;
 
 import android.app.Application;
 import android.content.res.AssetManager;

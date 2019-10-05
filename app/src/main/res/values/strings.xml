@@ -3,10 +3,14 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="welcome_you_are_logged_in">Welcome! You are logged in</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account_sign_in_here">Already Have an account? Sign in here</string>
+    <string name="logout">Logout</string>
+    <string name="sign_in">sign in</string>
+    <string name="not_registered_sin_up_here">not registered? sign up here</string>
 </resources>
