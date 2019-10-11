@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     public EditText emailId, password;
     Button btnSignIn;
     TextView tvSignUp;
+    TextView errorText;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         tvSignUp = findViewById(R.id.textView2);
         btnSignIn = findViewById(R.id.login);
+        errorText = findViewById(R.id.errorText);
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -69,14 +71,18 @@ public class LoginActivity extends AppCompatActivity {
                     password.requestFocus();
                 }
                 else if (email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                    errorText.setText("Fields are Empty!");
+                    errorText.setVisibility(View.VISIBLE);
                 }
                 else if (!(email.isEmpty() && pwd.isEmpty())){
                     mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Login Error, Please Login Again!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(LoginActivity.this, "Login Error, Please Login Again!", Toast.LENGTH_SHORT).show();
+                                errorText.setText("Login Error, Please Try Again");
+                                errorText.setVisibility(View.VISIBLE);
                             } else {
                                 Intent intoHome = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intoHome);
@@ -85,8 +91,9 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Error Ocurred!", Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(LoginActivity.this, "Error Ocurred!", Toast.LENGTH_SHORT).show();
+                    errorText.setText("Error Occured, Please Try Again");
+                    errorText.setVisibility(View.VISIBLE);
                 }
             }
         });

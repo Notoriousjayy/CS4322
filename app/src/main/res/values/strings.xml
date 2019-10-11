@@ -9,8 +9,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_you_are_logged_in">Welcome! You are logged in</string>
     <string name="sign_up">Sign Up</string>
-    <string name="already_have_an_account_sign_in_here">Already Have an account? Sign in here</string>
+    <string name="already_have_an_account_sign_in_here">Already Have an account? Click here</string>
     <string name="logout">Logout</string>
     <string name="sign_in">sign in</string>
-    <string name="not_registered_sin_up_here">not registered? sign up here</string>
+    <string name="not_registered_sin_up_here">not registered? Click here</string>
 </resources>

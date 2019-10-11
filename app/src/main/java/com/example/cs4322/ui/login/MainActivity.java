@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText emailId, password;
     Button btnSignUp;
     TextView tvSignIn;
+    TextView errorText;
     FirebaseAuth mFirebaseAuth;
 
     @Override
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         tvSignIn = findViewById(R.id.textView3);
         btnSignUp = findViewById(R.id.login);
+        errorText = findViewById(R.id.errorText);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,14 +51,18 @@ public class MainActivity extends AppCompatActivity {
                     password.requestFocus();
                 }
                 else if (email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                    errorText.setText("Fields are Empty!");
+                    errorText.setVisibility(View.VISIBLE);
                 }
                 else  if(!(email.isEmpty() && pwd.isEmpty())){
                     mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this,"SignUp Unsuccessful, Please Try Again",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(MainActivity.this,"SignUp Unsuccessful, Please Try Again",Toast.LENGTH_SHORT).show();
+                                errorText.setText("SignUp Unsuccessful, Please Try Again");
+                                errorText.setVisibility(View.VISIBLE);
                             }
                             else {
                                 startActivity(new Intent(MainActivity.this,HomeActivity.class));
@@ -65,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "Error Ocurred!", Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(MainActivity.this, "Error Ocurred!", Toast.LENGTH_SHORT).show();
+                    errorText.setText("Error Occured, Please Try Again");
+                    errorText.setVisibility(View.VISIBLE);
                 }
             }
         });
