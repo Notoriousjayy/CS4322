@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView errorText;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private String email;
+    private String pwd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = emailId.getText().toString();
-                String pwd = password.getText().toString();
+                email = emailId.getText().toString();
+                pwd = password.getText().toString();
+
 
                 if(email.isEmpty()){
                     emailId.setError("Please enter email id");
@@ -85,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                                 errorText.setVisibility(View.VISIBLE);
                             } else {
                                 Intent intoHome = new Intent(LoginActivity.this, HomeActivity.class);
+                                intoHome.putExtra("extra", email);
                                 startActivity(intoHome);
                             }
                         }

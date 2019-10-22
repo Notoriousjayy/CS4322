@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.cs4322.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnLogout;
+    TextView welcome;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -22,7 +24,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        welcome = findViewById(R.id.welcome);
         btnLogout = findViewById(R.id.button);
+
+        Intent intent = getIntent();
+
+        String id = intent.getStringExtra("extra");
+
+        welcome.setText("Welcome, " + id + "!");
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
