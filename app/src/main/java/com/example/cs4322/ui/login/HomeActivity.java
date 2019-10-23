@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.cs4322.Capture.Lookup;
 import com.example.cs4322.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnLogout;
+    Button capture;
     TextView welcome;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -26,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
 
         welcome = findViewById(R.id.welcome);
         btnLogout = findViewById(R.id.button);
+        capture = findViewById(R.id.capture);
 
         Intent intent = getIntent();
 
@@ -39,6 +42,14 @@ public class HomeActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent inToMain = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(inToMain);
+            }
+        });
+
+        capture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intoLookup = new Intent(HomeActivity.this, Lookup.class);
+                startActivity(intoLookup);
             }
         });
     }
