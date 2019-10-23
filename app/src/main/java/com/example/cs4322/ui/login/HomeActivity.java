@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cs4322.Capture.Lookup;
+import com.example.cs4322.Favorites.FavoritesMenu;
 import com.example.cs4322.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomeActivity extends AppCompatActivity {
     Button btnLogout;
     Button capture;
+    Button favorites;
     TextView welcome;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         welcome = findViewById(R.id.welcome);
         btnLogout = findViewById(R.id.button);
         capture = findViewById(R.id.capture);
+        favorites = findViewById(R.id.history);
 
         Intent intent = getIntent();
 
@@ -50,6 +53,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intoLookup = new Intent(HomeActivity.this, Lookup.class);
                 startActivity(intoLookup);
+            }
+        });
+
+        favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intoFavorites = new Intent(HomeActivity.this, FavoritesMenu.class);
+                startActivity(intoFavorites);
             }
         });
     }

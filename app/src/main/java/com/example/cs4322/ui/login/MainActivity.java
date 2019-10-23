@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvSignIn;
     TextView errorText;
     FirebaseAuth mFirebaseAuth;
+    private String email;
+    private String pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailId.getText().toString();
-                String pwd = password.getText().toString();
+                email = emailId.getText().toString();
+                pwd = password.getText().toString();
                 if(email.isEmpty()){
                     emailId.setError("Please enter email id");
                     emailId.requestFocus();
@@ -65,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
                                 errorText.setVisibility(View.VISIBLE);
                             }
                             else {
-                                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                                Intent intoHome = new Intent(MainActivity.this, HomeActivity.class);
+                                intoHome.putExtra("extra", email);
+                                startActivity(intoHome);
                             }
                         }
                     });

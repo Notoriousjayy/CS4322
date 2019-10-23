@@ -14,6 +14,6 @@
     <string name="sign_in">sign in</string>
     <string name="not_registered_sin_up_here">not registered? Click here</string>
     <string name="isbn_lookup_capture">ISBN Lookup (Capture)</string>
-    <string name="recent_history">Recent History</string>
+    <string name="recent_history">Favorites</string>
     <string name="manage_account">Manage Account</string>
 </resources>
