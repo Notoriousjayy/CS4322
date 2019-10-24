@@ -42,8 +42,8 @@ public class LookupResults extends AppCompatActivity {
             public void onItemClick(int position) {
                 Intent intent = new Intent(LookupResults.this, FavoritesMenu.class);
                 intent.putExtra("title", bookList.get(position).getText1());
-                intent.putExtra("author", bookList.get(position).getText2());
-                intent.putExtra("isbn", bookList.get(position).getText3());
+                intent.putExtra("author", bookList.get(position).getText3());
+                intent.putExtra("isbn", bookList.get(position).getText2());
 
                 startActivity(intent);
             }
