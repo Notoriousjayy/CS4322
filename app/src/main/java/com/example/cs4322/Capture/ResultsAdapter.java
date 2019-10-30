@@ -1,6 +1,5 @@
 package com.example.cs4322.Capture;
 
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs4322.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -68,9 +65,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
     public void onBindViewHolder(@NonNull ResultsViewHolder holder, int position) {
         BookItem current = list.get(position);
 
-        holder.t1.setText(current.getText1());
-        holder.t2.setText(current.getText2());
-        holder.t3.setText(current.getText3());
+        holder.t1.setText(current.getTitle());
+        holder.t2.setText(current.getISBN());
+        holder.t3.setText(current.getAuthor());
     }
 
     @Override

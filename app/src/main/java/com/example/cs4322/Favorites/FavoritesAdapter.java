@@ -82,9 +82,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     public void onBindViewHolder(@NonNull FavoritesViewHolder holder, int position) {
         FavoriteItem current = list.get(position);
 
-        holder.t1.setText(current.getText1());
-        holder.t2.setText(current.getText2());
-        holder.t3.setText(current.getText3());
+        holder.t1.setText(current.getTitle());
+        holder.t2.setText(current.getAuthor());
+        holder.t3.setText(current.getISBN());
     }
 
     @Override

@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Favorites.FavoritesMenu"></activity>
+        <activity android:name=".Account.AccountActivity"></activity>
+        <activity android:name=".Favorites.FavoritesMenu" />
         <activity android:name=".Capture.LookupResults" />
         <activity android:name=".Capture.Lookup" />
         <activity android:name=".Capture.Capture" />

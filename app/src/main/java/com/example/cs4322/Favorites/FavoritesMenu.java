@@ -1,5 +1,6 @@
 package com.example.cs4322.Favorites;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,17 +15,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.cs4322.Capture.BookItem;
 import com.example.cs4322.Capture.ResultsAdapter;
 import com.example.cs4322.R;
 import com.example.cs4322.ui.login.HomeActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class FavoritesMenu extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private FavoritesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+    private FirebaseUser user;
+
+    String userID;
 
     Button back;
 
@@ -35,6 +53,13 @@ public class FavoritesMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites_menu);
 
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        user = mAuth.getCurrentUser();
+        userID = user.getUid();
+        myRef = mFirebaseDatabase.getReference();
+
+
         back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +69,47 @@ public class FavoritesMenu extends AppCompatActivity {
             }
         });
 
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = mAuth.getCurrentUser();
+
+            }
+        };
+
+
         favoriteList = new ArrayList<>();
-        favoriteList.add(new FavoriteItem("The Worst President in History: The Legacy of Barrack Obama", "Author: Matt Margolis & Mark Noonan", "ISBN: 1234567890123"));
 
         mRecyclerView = findViewById(R.id.favorites);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new FavoritesAdapter(favoriteList);
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> items = dataSnapshot.child(userID).child("Books").getChildren().iterator();
+                favoriteList.clear();
+                while(items.hasNext()) {
+                    DataSnapshot item = items.next();
+                    favoriteList.add(new FavoriteItem(
+                            item.child("Title").getValue(String.class),
+                            item.child("Author").getValue(String.class),
+                            item.child("ISBN").getValue(String.class)
+                    ));
+
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
+
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -64,33 +123,15 @@ public class FavoritesMenu extends AppCompatActivity {
 
             @Override
             public void onDelete(int position) {
-                removeItem(position);
+                String number = favoriteList.get(position).getISBN();
+                favoriteList.remove(position);
                 mAdapter.notifyItemRemoved(position);
+
+                myRef.child(userID).child("Books").child(number).child("Title").removeValue();
+                myRef.child(userID).child("Books").child(number).child("Author").removeValue();
+                myRef.child(userID).child("Books").child(number).child("ISBN").removeValue();
             }
         });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Intent intent = getIntent();
-        String t1 = intent.getStringExtra("title");
-        String t2 = intent.getStringExtra("author");
-        String t3 = intent.getStringExtra("isbn");
-        if(t1 != null && t2 != null && t3 != null) {
-            insertItem(t1, t2, t3);
-            Toast.makeText(FavoritesMenu.this, "New Book Added!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void insertItem(String title, String author, String isbn){
-        favoriteList.add(new FavoriteItem(title, author, isbn));
-    }
-
-
-    public void removeItem(int position){
-        favoriteList.remove(position);
     }
 }
