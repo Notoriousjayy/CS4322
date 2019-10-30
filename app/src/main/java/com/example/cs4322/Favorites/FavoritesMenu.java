@@ -5,18 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.cs4322.Capture.BookItem;
-import com.example.cs4322.Capture.ResultsAdapter;
 import com.example.cs4322.R;
 import com.example.cs4322.ui.login.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;

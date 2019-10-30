@@ -1,4 +1,4 @@
-package com.example.cs4322.Capture;
+package com.example.cs4322.Search;
 
 public class BookItem {
 

@@ -1,4 +1,4 @@
-package com.example.cs4322.Capture;
+package com.example.cs4322.Search;
 
 import android.view.LayoutInflater;
 import android.view.View;

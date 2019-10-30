@@ -4,27 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Capture.LookupResults">
+    android:background="@android:color/darker_gray"
+    tools:context=".Search.LookupResults">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/results"
         android:layout_width="match_parent"
         android:layout_height="500dp"
+        android:layout_marginTop="100dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/searchTxt"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Enter your search"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Go Back"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="10dp"
+        android:text="@android:string/search_go"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results" />
+        app:layout_constraintStart_toEndOf="@+id/searchTxt"
+        app:layout_constraintTop_toTopOf="@+id/searchTxt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

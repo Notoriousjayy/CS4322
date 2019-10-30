@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.cs4322.Capture.Lookup;
+import com.example.cs4322.Search.Lookup;
 import com.example.cs4322.Favorites.FavoritesMenu;
 import com.example.cs4322.R;
+import com.example.cs4322.Search.LookupResults;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intoLookup = new Intent(HomeActivity.this, Lookup.class);
+                Intent intoLookup = new Intent(HomeActivity.this, LookupResults.class);
                 startActivity(intoLookup);
             }
         });

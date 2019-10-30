@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Account.AccountActivity"></activity>
         <activity android:name=".Favorites.FavoritesMenu" />
-        <activity android:name=".Capture.LookupResults" />
-        <activity android:name=".Capture.Lookup" />
+        <activity android:name=".Search.LookupResults" />
+        <activity android:name=".Search.Lookup" />
         <activity android:name=".Capture.Capture" />
         <activity android:name=".ui.login.MainActivity" />
         <activity android:name=".ui.login.HomeActivity" />
