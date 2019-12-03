@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cs4322.R;
+import com.example.cs4322.ui.login.HomeActivity;
 import com.example.cs4322.ui.login.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +43,8 @@ public class AccountActivity extends AppCompatActivity {
 
     private Button deleteBtn, locationBtn;
     private FloatingActionButton saveBtn;
+
+    private boolean changed = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +84,10 @@ public class AccountActivity extends AppCompatActivity {
                     user.updateProfile(nameUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (!task.isSuccessful())
+                            if (!task.isSuccessful()) {
                                 Toast.makeText(AccountActivity.this, "Name change failed!", Toast.LENGTH_SHORT).show();
+                                changed = false;
+                            }
                         }
                     });
                 }
@@ -91,8 +96,10 @@ public class AccountActivity extends AppCompatActivity {
                     user.updateEmail(emailTxt.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (!task.isSuccessful())
+                            if (!task.isSuccessful()) {
                                 Toast.makeText(AccountActivity.this, "Not a valid Email!", Toast.LENGTH_SHORT).show();
+                                changed = false;
+                            }
                         }
                     });
                 }
@@ -102,9 +109,16 @@ public class AccountActivity extends AppCompatActivity {
                     user.updatePassword(newPasswordTxt.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            //Nothing
+                            if (!task.isSuccessful()) {
+                                changed = false;
+                            }
                         }
                     });
+                }
+
+                if (changed) {
+                    Intent toHome = new Intent(AccountActivity.this, HomeActivity.class);
+                    startActivity(toHome);
                 }
             }
         });

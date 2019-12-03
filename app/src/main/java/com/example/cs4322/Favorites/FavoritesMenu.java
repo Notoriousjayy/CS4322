@@ -36,12 +36,13 @@ public class FavoritesMenu extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseUser user;
 
-    String userID;
-    String title;
-    String author;
-    String isbn;
-    String image;
-    String details;
+    private String userID;
+    private String title;
+    private String author;
+    private String isbn;
+    private String image;
+    private String details;
+    private String preview;
 
     Button back;
 
@@ -130,6 +131,7 @@ public class FavoritesMenu extends AppCompatActivity {
                         isbn = dataSnapshot.child(userID).child("Books").child(number).child("ISBN").getValue(String.class);
                         details = dataSnapshot.child(userID).child("Books").child(number).child("Details").getValue(String.class);
                         image = dataSnapshot.child(userID).child("Books").child(number).child("Image").getValue(String.class);
+                        preview = dataSnapshot.child(userID).child("Books").child(number).child("Preview").getValue(String.class);
                     }
 
                     @Override
@@ -142,6 +144,7 @@ public class FavoritesMenu extends AppCompatActivity {
                 intoDetails.putExtra("author", author);
                 intoDetails.putExtra("isbn", isbn);
                 intoDetails.putExtra("details", details);
+                intoDetails.putExtra("preview", preview);
                 intoDetails.putExtra("img", image);
 
                 if (title != null)
@@ -169,6 +172,7 @@ public class FavoritesMenu extends AppCompatActivity {
         author = null;
         isbn = null;
         image = null;
+        preview = null;
         details = null;
     }
 }

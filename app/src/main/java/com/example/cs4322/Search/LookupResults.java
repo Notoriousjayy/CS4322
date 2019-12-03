@@ -13,6 +13,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -126,6 +130,7 @@ public class LookupResults extends AppCompatActivity {
                 String isbn = bookList.get(position).getISBN();
                 String img = bookList.get(position).getThumbnail();
                 String details = bookList.get(position).getDetails();
+                String preview = bookList.get(position).getPreview();
 //
 //                if (isbn.equals("No ISBN")) {
 //                    Toast.makeText(LookupResults.this, "This book has no ISBN and can not be added to favorites", Toast.LENGTH_LONG).show();
@@ -144,6 +149,7 @@ public class LookupResults extends AppCompatActivity {
                 intent.putExtra("isbn", isbn);
                 intent.putExtra("img", img);
                 intent.putExtra("details", details);
+                intent.putExtra("preview", preview);
                 startActivity(intent);
             }
         });
@@ -205,9 +211,10 @@ public class LookupResults extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         //Bitmap bitmap = BitmapFactory.decodeFile(pathToFile);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+        Bitmap gray = toGrayscale(bitmap);
         OcrManager manager = new OcrManager();
         manager.initAPI();
-        String result = manager.startRecognizer(bitmap);
+        String result = manager.startRecognizer(gray);
         searchTxt.setText(result);
     }
 
@@ -284,7 +291,7 @@ public class LookupResults extends AppCompatActivity {
                                 String url = volumeInfo.getString("infoLink");
 
                                 if (!isbn.equals("No ISBN"))
-                                    bookList.add(new BookItem(title, isbn, author, thumbnail, description));
+                                    bookList.add(new BookItem(title, isbn, author, thumbnail, description, previewLink));
 
                                 resultsView.setAdapter(mAdapter);
                             }
@@ -338,5 +345,22 @@ public class LookupResults extends AppCompatActivity {
         Uri.Builder builder = uri.buildUpon();
 
         parseJson(builder.toString());
+    }
+
+    public Bitmap toGrayscale(Bitmap bmpOriginal)
+    {
+        int width, height;
+        height = bmpOriginal.getHeight();
+        width = bmpOriginal.getWidth();
+
+        Bitmap bmpGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmpGrayscale);
+        Paint paint = new Paint();
+        ColorMatrix cm = new ColorMatrix();
+        cm.setSaturation(0);
+        ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+        paint.setColorFilter(f);
+        c.drawBitmap(bmpOriginal, 0, 0, paint);
+        return bmpGrayscale;
     }
 }

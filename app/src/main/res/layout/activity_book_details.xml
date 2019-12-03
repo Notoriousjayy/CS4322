@@ -7,6 +7,7 @@
     tools:context=".Favorites.BookDetails">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
@@ -26,8 +27,8 @@
                 android:id="@+id/detailsTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="details"
                 android:padding="10dp"
+                android:text="details"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -76,6 +77,17 @@
         app:layout_constraintStart_toStartOf="@+id/authorTxt"
         app:layout_constraintTop_toBottomOf="@+id/authorTxt"
         tools:text="isbn number" />
+
+    <TextView
+        android:id="@+id/previewTxt"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:autoLink="web"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="@+id/authorTxt"
+        tools:text="" />
 
     <TextView
         android:id="@+id/noImageTxt"

@@ -7,15 +7,17 @@ public class BookItem {
     private String author;
     private String thumbnail;
     private String details;
+    private String preview;
 
     public BookItem(){}
 
-    public BookItem(String t1, String t2, String t3, String t4, String t5) {
+    public BookItem(String t1, String t2, String t3, String t4, String t5, String t6) {
         title = t1;
         isbn = t2;
         author = t3;
         thumbnail = t4;
         details = t5;
+        preview = t6;
     }
 
     public String getTitle() {
@@ -36,6 +38,10 @@ public class BookItem {
 
     public String getDetails() {
         return details;
+    }
+
+    public String getPreview() {
+        return preview;
     }
 
     public void setTitle(String t1) {

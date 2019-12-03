@@ -44,6 +44,7 @@ public class BookDetails extends AppCompatActivity {
     private TextView detailsTxt;
     private TextView isbnTxt;
     private TextView noImage;
+    private TextView previewTxt;
     private Button favoriteBtn;
 
     @Override
@@ -57,6 +58,7 @@ public class BookDetails extends AppCompatActivity {
         isbnTxt = findViewById(R.id.isbnTxt);
         detailsTxt = findViewById(R.id.detailsTxt);
         noImage = findViewById(R.id.noImageTxt);
+        previewTxt = findViewById(R.id.previewTxt);
 
         favoriteBtn = findViewById(R.id.favoriteButton);
 
@@ -80,12 +82,14 @@ public class BookDetails extends AppCompatActivity {
         String author = extras.getString("author");
         String isbn = extras.getString("isbn");
         String details = extras.getString("details");
+        final String preview = extras.getString("preview");
         final String img = extras.getString("img");
 
         titleTxt.setText(title);
         authorTxt.setText(author);
         isbnTxt.setText(isbn);
         detailsTxt.setText(details);
+        previewTxt.setText(preview);
         String imgURL = img;
 
         Picasso.get().load(imgURL).into(previewImg);
@@ -97,6 +101,7 @@ public class BookDetails extends AppCompatActivity {
                 String mAuthor = authorTxt.getText().toString();
                 String mIsbn = isbnTxt.getText().toString();
                 String mdetails = detailsTxt.getText().toString();
+                String mPreview = preview;
                 String mImage = img;
 
                 if (mIsbn.equals("No ISBN")) {
@@ -109,6 +114,7 @@ public class BookDetails extends AppCompatActivity {
                 mRef.child(userID).child("Books").child(mIsbn).child("ISBN").setValue(mIsbn);
                 mRef.child(userID).child("Books").child(mIsbn).child("Details").setValue(mdetails);
                 mRef.child(userID).child("Books").child(mIsbn).child("Image").setValue(mImage);
+                mRef.child(userID).child("Books").child(mIsbn).child("Preview").setValue(mPreview);
 
                 Toast.makeText(BookDetails.this, "New book added to Favorites!", Toast.LENGTH_SHORT).show();
 
