@@ -3,51 +3,183 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/userNameTxt"
+    android:background="#445566"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Account.AccountActivity">
 
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/newPasswordLabel"
+        tools:layout_editor_absoluteX="16dp" />
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="150dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/sym_def_app_icon" />
 
-    <TextureView
-        android:id="@+id/textureView2"
+    <EditText
+        android:id="@+id/userNameText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:hint="enter username"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/background_dark"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/userNameText"
+        tools:layout_editor_absoluteX="-8dp" />
 
     <TextView
-        android:id="@+id/userNameTitle"
+        android:id="@+id/emailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:gravity="center_vertical"
-        android:text="Username"
+        android:layout_marginTop="15dp"
+        android:text="Email"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <EditText
-        android:id="@+id/userNameText"
+    <TextView
+        android:id="@+id/passwordTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
-        android:text="Johnny"
-        android:textColor="@android:color/darker_gray"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:text="Password"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/userNameTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/emailTitle"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTitle"
+        tools:layout_editor_absoluteX="-6dp" />
+
+    <EditText
+        android:id="@+id/emailText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="enter email"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:gravity="right"
+        android:singleLine="true"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/emailTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userNameTitle" />
+        app:layout_constraintTop_toTopOf="@+id/emailTitle" />
+
+    <EditText
+        android:id="@+id/passwordText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="**********"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:gravity="right"
+        android:singleLine="true"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/passwordTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/passwordTitle" />
+
+    <Button
+        android:id="@+id/deleteAccountBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Delete Account"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/divider5"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/newPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="New Password"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+    <EditText
+        android:id="@+id/newPasswordTxt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="**********"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:gravity="right"
+        app:layout_constraintBottom_toBottomOf="@+id/newPasswordLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/newPasswordLabel" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="#2196F3"
+        app:layout_constraintBottom_toBottomOf="@+id/userNameText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:srcCompat="@android:drawable/ic_menu_save" />
+
+    <Button
+        android:id="@+id/locationBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:background="@color/colorPrimary"
+        android:text="Show Location"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAccountBtn"
+        app:layout_constraintEnd_toEndOf="@+id/userNameText"
+        app:layout_constraintStart_toStartOf="@+id/userNameText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

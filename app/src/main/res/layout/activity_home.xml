@@ -4,7 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#445566"
     tools:context=".ui.login.HomeActivity">
+
+    <ImageView
+        android:id="@+id/img4"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+
+    <ImageView
+        android:id="@+id/img2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/history"
+        app:layout_constraintTop_toTopOf="@+id/history"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+
+    <ImageView
+        android:id="@+id/img3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/accountBtn"
+        app:layout_constraintTop_toTopOf="@+id/accountBtn"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+
+    <ImageView
+        android:id="@+id/img1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/capture"
+        app:layout_constraintTop_toTopOf="@+id/capture"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
 
     <TextView
         android:id="@+id/welcome"
@@ -12,7 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/welcome_you_are_logged_in"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,19 +56,19 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:text="@string/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account" />
+        app:layout_constraintTop_toBottomOf="@+id/accountBtn" />
 
     <Button
         android:id="@+id/capture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:text="@string/isbn_lookup_capture"
+        android:text="Find Books"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
@@ -42,19 +77,20 @@
         android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:text="@string/recent_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/capture" />
 
     <Button
-        android:id="@+id/account"
+        android:id="@+id/accountBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:text="@string/manage_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/history" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.cs4322.R;
 import com.example.cs4322.ui.login.HomeActivity;
@@ -36,6 +37,11 @@ public class FavoritesMenu extends AppCompatActivity {
     private FirebaseUser user;
 
     String userID;
+    String title;
+    String author;
+    String isbn;
+    String image;
+    String details;
 
     Button back;
 
@@ -70,6 +76,7 @@ public class FavoritesMenu extends AppCompatActivity {
 
             }
         };
+
 
 
         favoriteList = new ArrayList<>();
@@ -110,8 +117,35 @@ public class FavoritesMenu extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new FavoritesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent goBack = new Intent(FavoritesMenu.this, HomeActivity.class);
-                startActivity(goBack);
+                final String number = favoriteList.get(position).getISBN();
+                final Intent intoDetails = new Intent(FavoritesMenu.this, BookDetails.class);
+
+
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        title = dataSnapshot.child(userID).child("Books").child(number).child("Title").getValue(String.class);
+                        author = dataSnapshot.child(userID).child("Books").child(number).child("Author").getValue(String.class);
+                        isbn = dataSnapshot.child(userID).child("Books").child(number).child("ISBN").getValue(String.class);
+                        details = dataSnapshot.child(userID).child("Books").child(number).child("Details").getValue(String.class);
+                        image = dataSnapshot.child(userID).child("Books").child(number).child("Image").getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                    }
+                });
+
+                intoDetails.putExtra("title", title);
+                intoDetails.putExtra("author", author);
+                intoDetails.putExtra("isbn", isbn);
+                intoDetails.putExtra("details", details);
+                intoDetails.putExtra("img", image);
+
+                if (title != null)
+                    startActivity(intoDetails);
             }
 
             @Override
@@ -120,11 +154,21 @@ public class FavoritesMenu extends AppCompatActivity {
                 favoriteList.remove(position);
                 mAdapter.notifyItemRemoved(position);
 
-                myRef.child(userID).child("Books").child(number).child("Title").removeValue();
-                myRef.child(userID).child("Books").child(number).child("Author").removeValue();
-                myRef.child(userID).child("Books").child(number).child("ISBN").removeValue();
+                myRef.child(userID).child("Books").child(number).removeValue();
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+        title = null;
+        author = null;
+        isbn = null;
+        image = null;
+        details = null;
     }
 }

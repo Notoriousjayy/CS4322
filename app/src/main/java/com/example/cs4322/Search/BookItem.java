@@ -5,13 +5,17 @@ public class BookItem {
     private String title;
     private String isbn;
     private String author;
+    private String thumbnail;
+    private String details;
 
     public BookItem(){}
 
-    public BookItem(String t1, String t2, String t3) {
+    public BookItem(String t1, String t2, String t3, String t4, String t5) {
         title = t1;
         isbn = t2;
         author = t3;
+        thumbnail = t4;
+        details = t5;
     }
 
     public String getTitle() {
@@ -24,6 +28,14 @@ public class BookItem {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getThumbnail(){
+        return thumbnail;
+    }
+
+    public String getDetails() {
+        return details;
     }
 
     public void setTitle(String t1) {

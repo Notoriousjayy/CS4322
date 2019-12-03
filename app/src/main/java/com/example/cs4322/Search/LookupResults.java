@@ -3,15 +3,20 @@ package com.example.cs4322.Search;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -43,9 +48,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import tessTwo.OcrManager;
+
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 
 public class LookupResults extends AppCompatActivity {
@@ -72,10 +86,16 @@ public class LookupResults extends AppCompatActivity {
     private FloatingActionButton camera;
     private String userID;
 
+    private String pathToFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lookup_results);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        }
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -148,30 +168,46 @@ public class LookupResults extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePic, 0);
+
+//                if (takePic.resolveActivity(getPackageManager()) != null) {
+//                    File photoFile = null;
+//                    photoFile = createPhotoFile();
+//
+//                    if (photoFile != null) {
+//                        pathToFile = photoFile.getAbsolutePath();
+//                        Uri photoURI = FileProvider.getUriForFile(LookupResults.this, "com.example.cs4322.fileprovider", photoFile);
+//                        takePic.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+//                        startActivityForResult(takePic, 1);
+//                    }
+//                }
+
+                startActivityForResult(takePic, 1);
             }
         });
     }
 
+
+//    private File createPhotoFile() {
+//        String name = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        File storageDir = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//        File image = null;
+//        try {
+//            image = File.createTempFile(name, ".jpg", storageDir);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return image;
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //Bitmap bitmap = BitmapFactory.decodeFile(pathToFile);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        //preview.setImageBitmap(bitmap);
-
-//        tessBaseAPI = new TessBaseAPI();
-//        tessBaseAPI.init(Environment.getExternalStorageDirectory().toString() + "/Tess", "eng");
-//        tessBaseAPI.setImage(bitmap);
-//
-//        String result = tessBaseAPI.getUTF8Text();
-//        tessBaseAPI.end();
-//
-//        searchTxt.setText(result);
-
         OcrManager manager = new OcrManager();
         manager.initAPI();
         String result = manager.startRecognizer(bitmap);
-
         searchTxt.setText(result);
     }
 
@@ -242,6 +278,7 @@ public class LookupResults extends AppCompatActivity {
 
                                 }
                                 String thumbnail = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+                                thumbnail = thumbnail + "&key=AIzaSyCXAJcQzncSJzs2fLQ0BiOwijpyqN8AZfw";
 
                                 String previewLink = volumeInfo.getString("previewLink");
                                 String url = volumeInfo.getString("infoLink");
@@ -297,7 +334,7 @@ public class LookupResults extends AppCompatActivity {
             return;
         }
         String final_query=search_query.replace(" ","+");
-        Uri uri=Uri.parse(BASE_URL+final_query+"&printType=books&filter=ebooks&maxResults=40");
+        Uri uri=Uri.parse(BASE_URL+final_query+"&printType=books&filter=ebooks&maxResults=40&key=AIzaSyCXAJcQzncSJzs2fLQ0BiOwijpyqN8AZfw");
         Uri.Builder builder = uri.buildUpon();
 
         parseJson(builder.toString());

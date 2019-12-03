@@ -16,4 +16,5 @@
     <string name="isbn_lookup_capture">ISBN Lookup (Capture)</string>
     <string name="recent_history">Favorites</string>
     <string name="manage_account">Manage Account</string>
+    <string name="map_key" translatable="false">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
 </resources>
